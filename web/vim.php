@@ -55,6 +55,7 @@ function vim($vim, $ref){
 $pageContent = '';
 $pageContentx = '';
 if($_POST){
+	
 	$id = $_POST['id'] ?? '';
 	$ref = $_POST['ref'] ?? '';
 	$qul = $_POST['qul'] ?? '';
@@ -63,7 +64,7 @@ if($_POST){
 		$playlist = preg_replace('#'.$match.'#'.$modifiers, $replace, $playlist);
 	}
 	file_put_contents($random, $playlist);
-	if(isset($_POST['api'])){
+	if($id != ''){
 		echo json_encode(array('ok' => true, 'data' => "https://".$_SERVER['HTTP_HOST']."/".$random));
 		exit;
 	}
