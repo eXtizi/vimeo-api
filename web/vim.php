@@ -102,11 +102,11 @@ input[type=submit]{background-color:#222;border:none;margin:5px;color:#f60;curso
 a{color:#0a0;}
 </style>
 STYLE;
-if(isset($_POST['api'])){
+/*if(isset($_POST['api'])){
 	echo json_encode(array('ok' => false, 'data' => ''));
 	exit;
 }
 else{
-	echo $pageContent;
+	*/echo $pageContent;
 }
 ?>
