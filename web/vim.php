@@ -19,6 +19,7 @@ SSS;
 preg_match_all('#^nzkcvod.+#m', $p, $m);
 var_dump($m);
 exit; */
+ini_set('display_errors', 1);
 
 function vim($vim, $ref){
 	$headers = array(
