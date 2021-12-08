@@ -57,9 +57,9 @@ $pageContentx = '';
 if($_POST){
 	$id = $_POST['id'] ?? '';
 	$ref = $_POST['ref'] ?? '';
-	$rqul = $qul['replace'] ?? '';
-	if($match != ''){
-		$modifiers = (($multiline == true) ? 'm':'').(($dmn == true) ? 's':'').(($nocase == true) ? 'i':'');
+	$qul = $_POST['qul'] ?? '';
+	if($id != ''){
+		$pageContent = vim($id, $ref);
 		$playlist = preg_replace('#'.$match.'#'.$modifiers, $replace, $playlist);
 	}
 	file_put_contents($random, $playlist);
