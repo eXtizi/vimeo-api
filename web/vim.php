@@ -62,9 +62,7 @@ if($_POST){
 	$qul = $_POST['qul'] ?? '';
 	if($id != ''){
 		$pageContent = vim($id, $ref);
-		$playlist = preg_replace('#'.$match.'#'.$modifiers, $replace, $playlist);
 	}
-	file_put_contents($random, $playlist);
 	if($id != ''){
 		$pageContent = vim($id, $ref);
 		echo json_encode(array('ok' => true, 'data' => $pageContent));
