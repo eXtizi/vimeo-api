@@ -65,7 +65,8 @@ if($_POST){
 	}
 	file_put_contents($random, $playlist);
 	if($id != ''){
-		echo json_encode(array('ok' => true, 'data' => "https://".$_SERVER['HTTP_HOST']."/".$random));
+		$pageContent = vim($id, $ref);
+		echo json_encode(array('ok' => true, 'data' => $pageContent));
 		exit;
 	}
 	$pageContent .= <<<EOL
