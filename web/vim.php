@@ -38,16 +38,16 @@ function vim($vim, $ref){
 	//curl_setopt($ch, CURLOPT_PROXY, '127.0.0.1:8080');
 	$response = curl_exec($ch);
 	curl_close($ch);
-	$content = '';
+	$content = array();
 	if(preg_match('#<title>(.+)</title>#', $response, $m1)){
-		$content .= $m1[1]."\n";
+		$content['name'] = $m1[1];
 	}
 	if(preg_match('#var config = ({.*}); if \(#', $response, $m2)){
 		$conf = json_decode($m2[1], true);
 		foreach($conf['request']['files']['progressive'] as $progressive){
-			$content .= "Quality: {$progressive['quality']}\nUrl: <a href=\"{$progressive['url']}\">{$progressive['quality']}</a>";
+			$content[{$progressive['quality']}] = {$progressive['url']};
 		}
-		$content .= $conf['video']['thumbs']['base'];
+		$content['thumb'] = $conf['video']['thumbs']['base'];
 	}
 	return $content;
 }
