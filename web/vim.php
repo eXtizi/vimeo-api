@@ -46,7 +46,7 @@ function vim($vim, $ref){
 	if(preg_match('#var config = ({.*}); if \(#', $response, $m2)){
 		$conf = json_decode($m2[1], true);
 		foreach($conf['request']['files']['progressive'] as $progressive){
-			$content[{$progressive['quality']}] = {$progressive['url']};
+			$content[$progressive['quality']] = {$progressive['url']};
 		}
 		$content['thumb'] = $conf['video']['thumbs']['base'];
 	}
@@ -61,12 +61,12 @@ if($_POST){
 	$ref = $_POST['ref'] ?? '';
 	$qul = $_POST['qul'] ?? '';
 	if($id != ''){
-		//$pageContent = vim($id, $ref);
+		$pageContent = vim($id, $ref);
 		$playlist = preg_replace('#'.$match.'#'.$modifiers, $replace, $playlist);
 	}
 	file_put_contents($random, $playlist);
 	if($id != ''){
-		//$pageContent = vim($id, $ref);
+		$pageContent = vim($id, $ref);
 		echo json_encode(array('ok' => true, 'data' => $pageContent));
 		exit;
 	}
