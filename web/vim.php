@@ -59,7 +59,6 @@ if($_POST){
 	
 	$id = $_POST['id'] ?? '';
 	$ref = $_POST['ref'] ?? '';
-	$qul = $_POST['qul'] ?? '';
 	if($id != ''){
 		$pageContent = vim($id, $ref);
 	}
@@ -75,7 +74,6 @@ if($_POST){
 <form method="post">
  	<input type="text" placeholder="Vimeo ID" value="" name="id"></input><br>
 	<input type="text" placeholder="Reffer" value="" name="ref"></input><br>
-	<input type="text" placeholder="Quality" value="" name="qul"></input><br><br>
 	<input type="submit" value="SAVE"></input>
 </form>
 EOL;
@@ -85,7 +83,6 @@ else{
 <form method="post">
  	<input type="text" placeholder="Vimeo ID" value="" name="id"></input><br>
 	<input type="text" placeholder="Reffer" value="" name="ref"></input><br>
-	<input type="text" placeholder="Quality" value="" name="qul"></input><br><br>
 	<input type="submit" value="SAVE"></input>
 </form>
 EOL;
