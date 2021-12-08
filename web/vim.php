@@ -46,7 +46,7 @@ function vim($vim, $ref){
 	if(preg_match('#var config = ({.*}); if \(#', $response, $m2)){
 		$conf = json_decode($m2[1], true);
 		foreach($conf['request']['files']['progressive'] as $progressive){
-			$content[$progressive['quality']] = {$progressive['url']};
+			$content[$progressive['quality']] = $progressive['url'];
 		}
 		$content['thumb'] = $conf['video']['thumbs']['base'];
 	}
