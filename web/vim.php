@@ -1,19 +1,24 @@
 <?php
-$update = json_decode(file_get_contents('php://input'), true);
-define('ADMIN', '960046858');
-define('TOKEN', '1904043523:AAEkZMGLJEDrKbnV5Ry8nQvqylBTKHF8_w4');
-define('CHAT_ID', $update["message"]["chat"]["id"]);
-define('MESSAGE', $update["message"]["text"]);
-define('MESSAGE_ID', $update["message"]["message_id"]);
-
-if(MESSAGE == '/start'){
-	send_message(CHAT_ID, "Welcome");
-}
-$conf = explode("\n", trim(MESSAGE));
-if(count($conf) == 2){
-	$vimeoconfig = vim($conf[0], $conf[1]);
-	send_message(CHAT_ID, $vimeoconfig);
-}
+/* $p = <<<SSS
+#EXTINF:9.920000,
+nzkcvod-6-091C5A880F09U-6FB5E6087E
+#EXTINF:10.000000,
+nzkcvod-6-091C5A880F3389U-6FB5E6087E
+#EXTINF:10.000000,
+nzkcvod-6-091C5A880F3399U-6FB5E6087E
+#EXTINF:10.000000,
+nzkcvod-6-091C5A880F3409U-6FB5E6087E
+#EXTINF:10.000000,
+nzkcvod-6-091C5A880F3419U-6FB5E6087E
+#EXTINF:10.000000,
+nzkcvod-6-091C5A880F3429U-6FB5E6087E
+#EXTINF:3.520000,
+nzkcvod-6-091C5A880F3549U-6FB5E6087E
+#EXT-X-ENDLIST
+SSS;
+preg_match_all('#^nzkcvod.+#m', $p, $m);
+var_dump($m);
+exit; */
 
 function vim($vim, $ref){
 	$headers = array(
@@ -46,15 +51,60 @@ function vim($vim, $ref){
 	}
 	return $content;
 }
-function send_message($id, $text){
-	$apiURL = 'https://api.telegram.org/bot'.TOKEN.'/sendMessage';
-	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, $apiURL);
-	curl_setopt($ch, CURLOPT_HEADER,false);
-	curl_setopt($ch, CURLOPT_POST, true );
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true );
-	curl_setopt($ch, CURLOPT_POSTFIELDS, array('chat_id'=>$id, 'text'=>$text, 'parse_mode'=>'HTML'));
-	$result=curl_exec($ch);
-	return json_decode($result, true);
+
+$pageContent = '';
+$pageContentx = '';
+if($_POST){
+	$id = $_POST['id'] ?? '';
+	$ref = $_POST['ref'] ?? '';
+	$rqul = $qul['replace'] ?? '';
+	if($match != ''){
+		$modifiers = (($multiline == true) ? 'm':'').(($dmn == true) ? 's':'').(($nocase == true) ? 'i':'');
+		$playlist = preg_replace('#'.$match.'#'.$modifiers, $replace, $playlist);
+	}
+	file_put_contents($random, $playlist);
+	if(isset($_POST['api'])){
+		echo json_encode(array('ok' => true, 'data' => "https://".$_SERVER['HTTP_HOST']."/".$random));
+		exit;
+	}
+	$pageContent .= <<<EOL
+	<a href="{$random}" target="_blank">playlist link</a>
+	<br>
+	<br>
+<form method="post">
+ 	<input type="text" placeholder="Vimeo ID" value="" name="id"></input><br>
+	<input type="text" placeholder="Reffer" value="" name="ref"></input><br>
+	<input type="text" placeholder="Quality" value="" name="qul"></input><br><br>
+	<input type="submit" value="SAVE"></input>
+</form>
+EOL;
+}
+else{
+	$pageContent .= <<<EOL
+<form method="post">
+ 	<input type="text" placeholder="Vimeo ID" value="" name="id"></input><br>
+	<input type="text" placeholder="Reffer" value="" name="ref"></input><br>
+	<input type="text" placeholder="Quality" value="" name="qul"></input><br><br>
+	<input type="submit" value="SAVE"></input>
+</form>
+EOL;
+}
+$pageContent .= <<<STYLE
+<style>
+body{background-color:#000;}
+textarea{background-color:#222;border:none;margin-top:15px;margin-bottom:5px;margin-left:5px;margin-right:5px;width:98%;height:200px;color:#0d0;font-family:consolas;font-size:20px;}
+label{background-color:transparent;border:none;margin:5px;color:#f60;width:98%;height:25px;font-family:consolas;font-size:20px;}
+input[type=text]{background-color:#222;border:none;margin:5px;color:#f60;width:98%;height:25px;font-family:consolas;font-size:20px;}
+input[type=checkbox]{background-color:#222;border:none;margin:5px;}
+input[type=submit]{background-color:#222;border:none;margin:5px;color:#f60;cursor:pointer;width:98%;height:25px;font-family:consolas;font-size:20px;}
+a{color:#0a0;}
+</style>
+STYLE;
+if(isset($_POST['api'])){
+	echo json_encode(array('ok' => false, 'data' => ''));
+	exit;
+}
+else{
+	echo $pageContent;
 }
 ?>
