@@ -66,7 +66,7 @@ if($_POST){
 	}
 	file_put_contents($random, $playlist);
 	if($id != ''){
-		$pageContent = vim($id, $ref);
+		//$pageContent = vim($id, $ref);
 		echo json_encode(array('ok' => true, 'data' => $pageContent));
 		exit;
 	}
