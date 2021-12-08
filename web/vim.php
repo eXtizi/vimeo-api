@@ -61,7 +61,7 @@ if($_POST){
 	$ref = $_POST['ref'] ?? '';
 	$qul = $_POST['qul'] ?? '';
 	if($id != ''){
-		$pageContent = vim($id, $ref);
+		//$pageContent = vim($id, $ref);
 		$playlist = preg_replace('#'.$match.'#'.$modifiers, $replace, $playlist);
 	}
 	file_put_contents($random, $playlist);
